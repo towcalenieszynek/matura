@@ -57,5 +57,5 @@ def pierwiastek(n, dokl):
 
     return round((a+b)/2, dokl)
 
-print(pierwiastek(3, 3))
-print(pierwiastek(3, ))
+# print(pierwiastek(3, 3))
+# print(pierwiastek(3, ))
