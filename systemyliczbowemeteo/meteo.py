@@ -34,6 +34,8 @@ with open('./systemyliczbowemeteo/dane_systemy3.txt', 'r') as f:
         s3.append((zegar, temperatura))
 
 
+stacje = [s1, s2, s3]
+
 #1 podpunkt
 min_s1, min_s2, min_s3 = 999999999999, 99999999999, 99999999999
 
@@ -85,3 +87,32 @@ res = np1.intersection(np2).intersection(np3)
 print('2 podpunkt')
 print(len(res))
 print(res)
+
+#3 podpunkt
+res3 = 0
+
+for stacja in stacje:
+    rekord = -9999999999
+    # print(stacja)
+    for zegar, temperatura in stacja:
+        if rekord is None or temperatura > rekord:
+            res3 += 1
+            # print('Znaleziono dzień rekordowy: poprzednia {} nowa {}'.format(rekord, temperatura))
+            rekord = temperatura
+            # print('Znaleziono dzień rekordowy: poprzednia {} nowa {}'.format(rekord, temperatura))
+
+print('3 podpunkt')
+print(res3)
+
+#4 podpunkt
+skoki = []
+for i in range(len(s1)):
+    for j in range(i+1, len(s1)):
+        ti, tj = s1[i][1], s1[j][1]
+        r_ij = (ti-tj)**2
+        skok = r_ij // abs(i - j)
+        skoki.append(skok)
+
+print('4 podpunkt')
+print(skoki)
+print(max(skoki))
