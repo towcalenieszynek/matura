@@ -4,38 +4,30 @@ with open('./geny/dane_geny.txt', 'r') as f:
     genotypy = [linia.strip() for linia in f.readlines()]
 
 def extract(genotyp):
-    second_a = False
-    second_b = False
-    encoding = False
     geny = []
-    gen = ''
-    for l in genotyp:
-        if l == 'A':
-            second_b = False
-            if second_a:
-                encoding = True
-                second_a = False
-                gen += l
+    i = 0
+    n = len(genotyp)
+    
+    while i < n - 1:
+        # Szukamy początku genu (AA)
+        if genotyp[i] == 'A' and genotyp[i+1] == 'A':
+            gen_start = i
+            i += 2
+            # Szukamy końca genu (BB)
+            while i < n - 1:
+                if genotyp[i] == 'B' and genotyp[i+1] == 'B':
+                    # Znaleźliśmy koniec genu
+                    gen = genotyp[gen_start:i+2]
+                    geny.append(gen)
+                    i += 2
+                    break
+                i += 1
             else:
-                second_a = True
-                gen += l
-        elif l == 'B':
-            second_a = False
-            if second_b:
-                encoding = False
-                second_b = False
-                gen += l
-                geny.append(gen)
-                gen = ''
-            else:
-                second_b = True
-                gen += l
+                # Nie znaleziono BB - koniec genotypu
+                break
         else:
-            second_a = False
-            second_b = False
-            if encoding:
-                gen += l
-
+            i += 1
+    
     return tuple(geny)
 
 #1 podpunkt
