@@ -1,22 +1,28 @@
 #include <bits/stdc++.h>
 using namespace std;
+#define END "\n"
 
 int main()
 {
-    vector<int> kolejka = {5, 2, 4, 3};
-    int n = kolejka.size();
 
-    int minimum = kolejka[n-1];
-    int poprzedni = n+1;
-    int wynik = 0;
-    for (int i = n - 1; i >= 0; i--)
+    ios_base::sync_with_stdio(false);
+    cin.tie(NULL);
+
+    int n;
+    cin >> n;
+    vector<int> c(n);
+    for(int i = 0; i < n; i++)
     {
-        if (kolejka[i] < minimum)
-        {
-            wynik += minimum*(poprzedni - i);
-            minimum = kolejka[i];
-            poprzedni = i+1;
-        }
+        cin >> c[i];
     }
-    cout << "wynik " << wynik;
+
+    int minimum = c[n - 1] + 1;
+    int wynik = 0;
+    for(int i = n-1; i >= 0; i--)
+    {
+        minimum = min(minimum, c[i]);
+        wynik += minimum;
+    }
+    cout << wynik << "\n";
+
 }
