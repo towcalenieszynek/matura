@@ -45,4 +45,4 @@ from collections import Counter
 c = Counter(napisy)
 for key, value in c.items():
     if value > 1:
-        print(key)
+        print(key
